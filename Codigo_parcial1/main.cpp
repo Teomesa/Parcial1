@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int formulas(int [], int, int);
+
 
 int main()
 {
@@ -68,7 +68,3 @@ int main()
     }
 }
 
-int formulas(int posicionO[2], int velocidadx, int velocidady){
-
-    return *arreglo;
-}
