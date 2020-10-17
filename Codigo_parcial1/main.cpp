@@ -3,13 +3,13 @@
 
 using namespace std;
 
-void formulas(int [], int [], int, int);
+int formulas(int [], int, int);
 
 int main()
 {
     //Coordenadas de los cañones
     int coordenadasO[2]={0}, coordenadasD[2];
-    cout << "Ingrese la posicion en Y del canonO";
+    cout << "Ingrese la posicion en Y del canon O: ";
     cin >> coordenadasO[1];
     cout << "Ingrese las coordenadas del canon D (x,y): ";
     for (int i=0;i<2;i++){
@@ -31,16 +31,28 @@ int main()
     cout << "Generar disparos (al menos tres) defensivos que comprometan la integridad del cañón ofensivo" << endl;
     cout << "Dado un disparo ofensivo, generar (al menos tres) disparos defensivos que impida que el canón defensivo sea destruido sin importar si el cañón ofensivo pueda ser destruido." << endl;
     cout << "Dado un disparo ofensivo, generar (al emnos tres) disparo defensivos que impidan que los canones defensivo y ofensivo puedan ser destruidos." << endl;
+    cout << ": ";
     cin >> caso;
     switch (caso) {
     case 1:
     {
-        float Rd=0.025;
+        bool ataque;
+        float Radio_desc_canonD=0.025*coordenadasD[0];
+        float Radio_desc_canonO=0.05*coordenadasD[0];
+        int misil=formulas(coordenadasO, VxO, VyO);
+        if(coordenadasD[0] <= +(Radio_desc_canonO)){
+            ataque = true;
+        }
+
+        else if(y-(Radio_desc_canonD) >= coordenadasD[1]){
+            cout << "Hay un misil cerca" << endl;
+        }
     }
     }
 }
 
-void formulas(int posicionO[2], int velocidadx, int velocidady){
+int formulas(int posicionO[2], int velocidadx, int velocidady){
+    int arrelo[4]={};
     int t=0;
     int t1=(-velocidady+sqrt(pow(velocidady,2)-4*posicionO[1]*-4.90))/2*posicionO[0];
     int t2=(-velocidady-sqrt(pow(velocidady,2)-4*posicionO[1]*-4.90))/2*posicionO[0];
@@ -52,4 +64,5 @@ void formulas(int posicionO[2], int velocidadx, int velocidady){
     int Vx=velocidadx;
     int y=posicionO[1]+velocidady*t-(9.81/2)*pow(t, 2);
     int Vy=-9.8*t;
+
 }
