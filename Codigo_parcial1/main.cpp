@@ -13,7 +13,7 @@ int main()
     for (int i=0;i<2;i++){
         cin >> coordenadasD[i];
     }
-    int anguloO, velocidadO;
+    float anguloO, velocidadO;
     float pi=3.1416;
     cout << "Ingrese el angulo con el cual es lanzada la bala del canon respecto a la horizontal: ";
     cin >> anguloO;
@@ -38,18 +38,22 @@ int main()
         float Radio_desc_canonD=0.025*coordenadasD[0];
         float Radio_desc_canonO=0.05*coordenadasD[0];
         int arreglo[4]={};
-        int t=1;
-        for (; t<1000;t++){
-            int x=VxO*t;
+        int tiempo=2;
+        for (; tiempo<1000;tiempo++){
+            int x=VxO*tiempo;
             int Vx=VxO;
-            int y=coordenadasO[1]+VyO*t-(9.81/2)*pow(t, 2);
-            int Vy=-9.8*t;
+            int y=coordenadasO[1]+(VyO*tiempo)-(4.90*pow(tiempo, 2));
+            int Vy=-9.8*tiempo;
             arreglo[0]=x;
             arreglo[1]=Vx;
             arreglo[2]=y;
             arreglo[3]=Vy;
             if (coordenadasD[0]+arreglo[0]+arreglo[2]<=coordenadasO[0]){
-                cout << t << endl;
+                cout << "El tiempo donde detona la bala es: "  << tiempo << endl;
+                int posbalax, posbalay;
+                posbalax=VxO*tiempo;
+                posbalay=coordenadasO[1]+(VyO*tiempo)-(4.90*pow(tiempo, 2));
+                cout << "La distancia de la bala en el aire es: " << "X= " << posbalax << " Y= " << posbalay << endl;
                 break;
             }
         }
