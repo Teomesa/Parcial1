@@ -23,20 +23,6 @@ int main()
     float VxO,VyO;
     VxO=velocidadO*sin(anguloO);
     VyO=velocidadO*cos(anguloO);
-    int arreglo[4]={};
-    int t=1;
-    for (; t<1000;t++){
-        int x=VxO*t;
-        int Vx=VxO;
-        int y=coordenadasO[1]+VyO*t-(9.81/2)*pow(t, 2);
-        int Vy=-9.8*t;
-        arreglo[0]=x;
-        arreglo[1]=Vx;
-        arreglo[2]=y;
-        arreglo[3]=Vy;
-        if (coordenadasD[0]+arreglo[0]+arreglo[2]<=coordenadasO[0])
-            break;
-    }
     int caso;
     cout << "ingrese el caso quiere ver: " << endl;
     cout << "1. Generar disparos (al menos tres) ofensivos que comprometan la integridad del canon defensivo" << endl;
@@ -51,16 +37,29 @@ int main()
         bool ataque;
         float Radio_desc_canonD=0.025*coordenadasD[0];
         float Radio_desc_canonO=0.05*coordenadasD[0];
+        int arreglo[4]={};
+        int t=1;
+        for (; t<1000;t++){
+            int x=VxO*t;
+            int Vx=VxO;
+            int y=coordenadasO[1]+VyO*t-(9.81/2)*pow(t, 2);
+            int Vy=-9.8*t;
+            arreglo[0]=x;
+            arreglo[1]=Vx;
+            arreglo[2]=y;
+            arreglo[3]=Vy;
+            if (coordenadasD[0]+arreglo[0]+arreglo[2]<=coordenadasO[0]){
+                cout << t << endl;
+                break;
+            }
+        }
         if(coordenadasD[0] <= arreglo[0]+(Radio_desc_canonO) or arreglo[2]-(Radio_desc_canonO) >= coordenadasD[1]){
-            cout << ""
-                    "¡PRECAUCION, MISIL CERCA!" << endl;
+            cout << "¡PRECAUCION, MISIL CERCA!" << endl;
             ataque = true;
         }
-        else{
-            cout << "No se aproxima ningun misil";
-        }
+        else
+            cout << "No se aproxima ningun misil" << endl;
     }
     }
-
 }
 
