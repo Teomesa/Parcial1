@@ -34,12 +34,13 @@ int main()
     switch (caso) {
     case 1:
     {
-        bool ataque;
+        bool ataque=false;
         float Radio_desc_canonD=0.025*coordenadasD[0];
         float Radio_desc_canonO=0.05*coordenadasD[0];
         int arreglo[4]={};
         int tiempo=2;
-        for (; tiempo<1000;tiempo++){
+        int cont=0;
+        for (; tiempo<1000;tiempo+=0.5){
             int x=VxO*tiempo;
             int Vx=VxO;
             int y=coordenadasO[1]+(VyO*tiempo)-(4.90*pow(tiempo, 2));
@@ -48,21 +49,28 @@ int main()
             arreglo[1]=Vx;
             arreglo[2]=y;
             arreglo[3]=Vy;
-            if (coordenadasD[0]+arreglo[0]+arreglo[2]<=coordenadasO[0]){
-                cout << "El tiempo donde detona la bala es: "  << tiempo << endl;
-                int posbalax, posbalay;
-                posbalax=VxO*tiempo;
-                posbalay=coordenadasO[1]+(VyO*tiempo)-(4.90*pow(tiempo, 2));
-                cout << "La distancia de la bala en el aire es: " << "X= " << posbalax << " Y= " << posbalay << endl;
+            if(coordenadasD[0] <= arreglo[0]+(Radio_desc_canonO) or arreglo[2]-(Radio_desc_canonO) >= coordenadasD[1]){
+                cout << "¡PRECAUCION, MISIL CERCA!" << endl;
+                ataque = true;
                 break;
             }
-        }
-        if(coordenadasD[0] <= arreglo[0]+(Radio_desc_canonO) or arreglo[2]-(Radio_desc_canonO) >= coordenadasD[1]){
-            cout << "¡PRECAUCION, MISIL CERCA!" << endl;
-            ataque = true;
-        }
-        else
-            cout << "No se aproxima ningun misil" << endl;
+            else{
+                cout << "No se aproxima ningun misil" << endl;
+            }
+            cont+=1;
+            }
+            int posbalax=VxO*tiempo;
+            int posbalay=coordenadasO[1]+(VyO*tiempo)-(4.90*pow(tiempo, 2));
+            if (ataque==true){
+                cout << "Los parametros de simulacion son: " << endl;
+                cout << "La explosion fue en las coordenadas: " << "X= " << posbalax << " Y= " << posbalay << endl;
+                cout << "En un tiempo t= " << cont+2 << endl;
+                cout << "La distancia recorrida por el misil ofensivo fue: " << "Horizontal: " << posbalax << " vertical: " << posbalay << endl;
+                cout << "La distancia recorrida por el misil defensivo fue: " << "Horizontal: " << coordenadasD[0]-posbalax << " vertical: " << posbalay-coordenadasD[1] << endl;
+                cout << endl;
+                ataque=false;
+                break;
+            }
     }
     }
 }
