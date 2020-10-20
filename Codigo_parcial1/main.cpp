@@ -3,8 +3,6 @@
 
 using namespace std;
 
-
-
 int main()
 {
     //Coordenadas de los cañones
@@ -26,21 +24,19 @@ int main()
     VxO=velocidadO*sin(anguloO);
     VyO=velocidadO*cos(anguloO);
     int arreglo[4]={};
-    int t=0;
-    int t1=(-VyO+sqrt(pow(VyO,2)-4*coordenadasO[1]*-4.90))/2*coordenadasO[0];
-    int t2=(-VyO-sqrt(pow(VyO,2)-4*coordenadasO[1]*-4.90))/2*coordenadasO[0];
-    if (t1>=0)
-        t=t1;
-    else
-        t=t2;
-    int x=coordenadasO[0]+VxO*t;
-    int Vx=VxO;
-    int y=coordenadasO[1]+VyO*t-(9.81/2)*pow(t, 2);
-    int Vy=-9.8*t;
-    arreglo[0]=x;
-    arreglo[1]=Vx;
-    arreglo[2]=y;
-    arreglo[3]=Vy;
+    int t=1;
+    for (; t<1000;t++){
+        int x=VxO*t;
+        int Vx=VxO;
+        int y=coordenadasO[1]+VyO*t-(9.81/2)*pow(t, 2);
+        int Vy=-9.8*t;
+        arreglo[0]=x;
+        arreglo[1]=Vx;
+        arreglo[2]=y;
+        arreglo[3]=Vy;
+        if (distanciaD+arreglo[0]+arreglo[2]<=coordenadasO[0])
+            break;
+    }
     int caso;
     cout << "ingrese el caso quiere ver: " << endl;
     cout << "1. Generar disparos (al menos tres) ofensivos que comprometan la integridad del canon defensivo" << endl;
@@ -55,7 +51,7 @@ int main()
         bool ataque;
         float Radio_desc_canonD=0.025*coordenadasD[0];
         float Radio_desc_canonO=0.05*coordenadasD[0];
-        if(coordenadasD[0] <= x+(Radio_desc_canonO) or y-(Radio_desc_canonO) >= coordenadasD[1]){
+        if(coordenadasD[0] <= arreglo[0]+(Radio_desc_canonO) or arreglo[2]-(Radio_desc_canonO) >= coordenadasD[1]){
             cout << ""
                     "¡PRECAUCION, MISIL CERCA!" << endl;
             ataque = true;
@@ -66,5 +62,6 @@ int main()
 
     }
     }
+
 }
 
