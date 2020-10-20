@@ -7,8 +7,6 @@ using namespace std;
 
 int main()
 {
-
-    float anguloO = 0.0, velocidadO = 0.0;
     float pi=3.1416;
     int caso;
     cout << "ingrese el caso quiere ver: " << endl;
@@ -41,8 +39,6 @@ int main()
         VyO=VelO*cos(angulo1);
         for (int i=0;i<=3;i++){
             for (;VelO<=VelO*3;VelO+=VelO){
-                VxO=VelO*sin(angulo1);
-                VyO=VelO*cos(angulo1);
                 for (float tiempo=0; tiempo<1000; tiempo+=0.5){
                     x=VxO*tiempo;
                     y=coordenadasO[1]+(VyO*tiempo)-(4.90*pow(tiempo, 2));
@@ -70,6 +66,12 @@ int main()
                 cin >> coordenadasD[i];
             }
             float VxO,VyO;
+            float anguloO, velocidadO;
+            cout << "Ingrese el valor del angulo";
+            cin >> anguloO;
+            anguloO=(anguloO*pi)/180;
+            cout << "Ingrese un valor de la velocidad";
+            cin >> velocidadO;
             VxO=velocidadO*sin(anguloO);
             VyO=velocidadO*cos(anguloO);
             bool ataque=false;
@@ -126,6 +128,7 @@ int main()
         int angulo;
         cout << "Ingresa el angulo de su lanzamiento: ";
         cin >> angulo;
+        angulo=(angulo*pi)/180;
         cout << "Ingresa la velocidad del lanzamiento";
         cin >> v;
         vx_bala=v*cos(angulo);
