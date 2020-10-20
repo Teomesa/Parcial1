@@ -13,11 +13,11 @@ int main()
     for (int i=0;i<2;i++){
         cin >> coordenadasD[i];
     }
-    int distanciaD, alturaD, anguloO, velocidadO;
-    distanciaD=coordenadasD[0];
-    alturaD=coordenadasD[1];
+    int anguloO, velocidadO;
+    float pi=3.1416;
     cout << "Ingrese el angulo con el cual es lanzada la bala del canon respecto a la horizontal: ";
     cin >> anguloO;
+    anguloO=anguloO*pi/180;
     cout << "Ingrese la velocidad inicial con la cual es lanzada el canon O: ";
     cin >> velocidadO;
     float VxO,VyO;
@@ -34,7 +34,7 @@ int main()
         arreglo[1]=Vx;
         arreglo[2]=y;
         arreglo[3]=Vy;
-        if (distanciaD+arreglo[0]+arreglo[2]<=coordenadasO[0])
+        if (coordenadasD[0]+arreglo[0]+arreglo[2]<=coordenadasO[0])
             break;
     }
     int caso;
@@ -59,7 +59,6 @@ int main()
         else{
             cout << "No se aproxima ningun misil";
         }
-
     }
     }
 
